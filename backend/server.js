@@ -19,11 +19,12 @@ const corsOptions = {
     'http://localhost:3006',
     'http://localhost:3000',
     'https://buildpaint.vercel.app',
-    'https://buildpaint-frontend.vercel.app'
+    'https://buildpaint-frontend.vercel.app',
+    'https://*.vercel.app'
   ],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
   maxAge: 86400
 };
 
@@ -61,26 +62,30 @@ mongoose.connect(process.env.MONGODB_URI, {
 })
 .then(() => {
   console.log('Connected to MongoDB');
-  // Start server only after successful database connection
-  const PORT = process.env.PORT || 3001;
-  const server = app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server is running on port ${PORT}`);
-    console.log(`API URL: http://localhost:${PORT}/api`);
-  });
+  // Only start server if not in serverless environment
+  if (process.env.NODE_ENV !== 'production' || process.env.VERCEL !== '1') {
+    const PORT = process.env.PORT || 3001;
+    const server = app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server is running on port ${PORT}`);
+      console.log(`API URL: http://localhost:${PORT}/api`);
+    });
 
-  // Handle server errors
-  server.on('error', (error) => {
-    if (error.code === 'EADDRINUSE') {
-      console.error(`Port ${PORT} is already in use. Please try a different port.`);
-      process.exit(1);
-    } else {
-      console.error('Server error:', error);
-    }
-  });
+    // Handle server errors
+    server.on('error', (error) => {
+      if (error.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use. Please try a different port.`);
+        process.exit(1);
+      } else {
+        console.error('Server error:', error);
+      }
+    });
+  }
 })
 .catch((err) => {
   console.error('MongoDB connection error:', err);
-  process.exit(1);
+  if (process.env.NODE_ENV !== 'production' || process.env.VERCEL !== '1') {
+    process.exit(1);
+  }
 });
 
 // Clerk authentication middleware
