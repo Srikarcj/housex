@@ -1,0 +1,32 @@
+{
+  "name": "housex",
+  "version": "1.0.0",
+  "description": "A platform for booking low-cost painters and housebuilders",
+  "scripts": {
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "frontend": "cd frontend && npm run dev",
+    "backend": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start && cd ../frontend && npm run preview"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@clerk/clerk-sdk-node": "^4.13.23",
+    "cloudinary": "^2.6.1",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "framer-motion": "^12.12.2",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.511.0",
+    "mongoose": "^8.15.0",
+    "multer": "^2.0.0",
+    "openai": "^4.103.0",
+    "react-leaflet": "^5.0.0",
+    "socket.io": "^4.8.1"
+  }
+}
