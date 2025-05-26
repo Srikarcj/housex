@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "npm install && npm install -g vite && npm run build",
+  "buildCommand": "npm install --no-optional && npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "installCommand": "npm install",
+  "installCommand": "npm install --no-optional",
   "devCommand": "npm run dev",
   "rewrites": [
     {
