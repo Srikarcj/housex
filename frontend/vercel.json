@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "buildCommand": "npm install --no-optional && npm run build",
-  "outputDirectory": "dist",
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
   "framework": "vite",
-  "installCommand": "npm install --no-optional",
-  "devCommand": "npm run dev",
+  "installCommand": "cd frontend && npm install",
+  "devCommand": "cd frontend && npm run dev",
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -21,15 +21,11 @@
         },
         {
           "key": "Access-Control-Allow-Methods",
-          "value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
         },
         {
           "key": "Access-Control-Allow-Headers",
-          "value": "X-Requested-With, Content-Type, Accept, Authorization, X-CSRF-Token"
-        },
-        {
-          "key": "Access-Control-Allow-Credentials",
-          "value": "true"
+          "value": "X-Requested-With, Content-Type, Accept, Authorization"
         }
       ]
     }
